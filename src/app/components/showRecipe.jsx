@@ -1,7 +1,7 @@
 export default function ShowRecipe() {
 	return (
 		<>
-			<div className="bg-slate-100 p-8 mt-16 shadow-md">
+			<div className="bg-white p-8 mt-16 shadow-md rounded-md">
 				<div className="text-xl font-bold w-screen ">Ready for a recipe?</div>
 				<div className="flex justify-end ">
 					<button className="bg-gray-500 text-white px-4 py-3 rounded-lg font-medium transition-all hover:bg-gray-600">

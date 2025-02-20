@@ -3,6 +3,7 @@ import Header from "./components/header";
 import { useState } from "react";
 import IngredientForm from "./components/ingredientForm";
 import ShowRecipe from "./components/showRecipe";
+import ItemsInBasket from "./components/itemsInBasket";
 
 export default function Home() {
 	const [ingredients, setIngredients] = useState([]);
@@ -12,7 +13,8 @@ export default function Home() {
 			<Header />
 			<div className="mt-24 w-full">
 				<IngredientForm setIngredients={setIngredients} />
-				{ingredients.length > 3 && <ShowRecipe />}
+				<ItemsInBasket ingredients={ingredients} />
+				{ingredients.length >= 3 && <ShowRecipe />}
 			</div>
 		</div>
 	);

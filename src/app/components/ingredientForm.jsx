@@ -1,10 +1,14 @@
+import { useState } from "react";
+
 export default function IngredientForm({ setIngredients }) {
+	const [ingredient, setIngredient] = useState("");
+
 	function updateIngredients(event) {
 		event.preventDefault();
-		if (event.target.ingredient.value.trim()) {
-			setIngredients((prevIngredients) => [...prevIngredients, event.target.ingredient.value]);
+		if (ingredient.trim()) {
+			setIngredients((prevIngredients) => [...prevIngredients, ingredient]);
 		}
-		event.target.reset();
+		setIngredient("");
 	}
 
 	return (
@@ -18,6 +22,8 @@ export default function IngredientForm({ setIngredients }) {
 						id="ingredient"
 						type="text"
 						placeholder="Enter Ingredient"
+						value={ingredient}
+						onChange={(e) => setIngredient(e.target.value)}
 					/>
 					<button
 						className="bg-gray-500 text-white font-medium p-2 rounded-md transition hover:bg-gray-600"
