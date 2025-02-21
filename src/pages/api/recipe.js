@@ -31,7 +31,7 @@ export default async function getRecipe(req, res) {
 			],
 		});
 		const recipe = response.content[0].text;
-		res.status(200).json({ recipe: recipe });
+		res.status(200).json(recipe);
 	} catch (e) {
 		console.error(e);
 		res.status(500).json({ error: `Unable to get recipe, ${e.message}` });

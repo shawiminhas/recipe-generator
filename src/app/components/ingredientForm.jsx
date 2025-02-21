@@ -13,7 +13,7 @@ export default function IngredientForm({ setIngredients }) {
 
 	return (
 		<div className="bg-slate-200">
-			<div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md mx-auto">
+			<div className="bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto">
 				<h2 className="text-xl font-semibold text-center mb-3">Enter at least three ingredients to get started</h2>
 				<form onSubmit={updateIngredients} className="flex flex-col gap-3">
 					<input

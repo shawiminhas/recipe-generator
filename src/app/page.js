@@ -13,8 +13,10 @@ export default function Home() {
 			<Header />
 			<div className="mt-24 w-full">
 				<IngredientForm setIngredients={setIngredients} />
-				<ItemsInBasket ingredients={ingredients} />
-				{ingredients.length >= 3 && <ShowRecipe />}
+				<div className="max-w-2xl mx-auto">
+					<ItemsInBasket ingredients={ingredients} />
+					{ingredients.length >= 3 && <ShowRecipe ingredients={ingredients} />}
+				</div>
 			</div>
 		</div>
 	);
