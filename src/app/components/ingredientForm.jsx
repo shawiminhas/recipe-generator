@@ -26,7 +26,7 @@ export default function IngredientForm({ setIngredients }) {
 						onChange={(e) => setIngredient(e.target.value)}
 					/>
 					<button
-						className="bg-gray-500 text-white font-medium p-2 rounded-md transition hover:bg-gray-600"
+						className="bg-gray-500 text-white font-medium p-2 rounded-md transition-all hover:bg-gray-600"
 						type="submit">
 						Add Ingredient
 					</button>

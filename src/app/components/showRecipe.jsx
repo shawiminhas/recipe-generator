@@ -1,8 +1,10 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import ReactModal from "react-modal";
 
 export default function ShowRecipe({ ingredients }) {
 	const [recipe, setRecipe] = useState("");
+	const [showRecipe, setShowRecipe] = useState(false);
 
 	async function generateRecipe() {
 		try {
@@ -16,25 +18,38 @@ export default function ShowRecipe({ ingredients }) {
 
 			const generatedRecipe = await response.json();
 			setRecipe(generatedRecipe);
+			setShowRecipe(true);
 		} catch (e) {
 			console.error(`Error: ${e.message}`);
 		}
 	}
 
+	function closeModal() {
+		setShowRecipe(false);
+	}
+
 	function displayRecipe() {
 		return (
-			<div className="flex justify-center mt-20">
-				<div className="prose rounded-lg bg-white p-10 font-semibold shadow-md">
-					<ReactMarkdown>{recipe}</ReactMarkdown>
+			<ReactModal
+				isOpen={showRecipe}
+				contentLabel="Recipe"
+				ariaHideApp={false}
+				onRequestClose={closeModal}
+				shouldCloseOnEsc={true}
+				shouldCloseOnOverlayClick={true}>
+				<div className="flex justify-center">
+					<div className="prose rounded-lg bg-white py-10 px-12 font-semibold shadow-md min-w-max max-w-screen-md">
+						<ReactMarkdown>{recipe}</ReactMarkdown>
+					</div>
 				</div>
-			</div>
+			</ReactModal>
 		);
 	}
 
 	return (
 		<>
 			<div className="bg-white p-8 mt-16 shadow-md rounded-md">
-				<div className="text-xl font-bold w-screen ">Ready for a recipe?</div>
+				<div className="text-xl font-bold ">Ready for a recipe?</div>
 				<div className="flex justify-end ">
 					<button
 						onClick={generateRecipe}
