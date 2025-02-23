@@ -5,9 +5,11 @@ import ReactModal from "react-modal";
 export default function ShowRecipe({ ingredients }) {
 	const [recipe, setRecipe] = useState("");
 	const [showRecipe, setShowRecipe] = useState(false);
+	const [generatingRecipe, setGeneratingRecipe] = useState(false);
 
 	async function generateRecipe() {
 		try {
+			setGeneratingRecipe(true);
 			const response = await fetch("/api/recipe", {
 				method: "POST",
 				headers: {
@@ -21,6 +23,8 @@ export default function ShowRecipe({ ingredients }) {
 			setShowRecipe(true);
 		} catch (e) {
 			console.error(`Error: ${e.message}`);
+		} finally {
+			setGeneratingRecipe(false);
 		}
 	}
 
@@ -53,7 +57,8 @@ export default function ShowRecipe({ ingredients }) {
 				<div className="flex justify-end ">
 					<button
 						onClick={generateRecipe}
-						className="bg-gray-500 text-white px-4 py-3 rounded-lg font-medium transition-all hover:bg-gray-600">
+						className="bg-gray-500 text-white px-4 py-3 rounded-lg font-medium transition-all hover:bg-gray-600"
+						disabled={generatingRecipe}>
 						Generate Recipe
 					</button>
 				</div>
