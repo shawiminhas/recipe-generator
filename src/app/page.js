@@ -1,9 +1,9 @@
 "use client";
-import Header from "./components/header";
+import Header from "./components/Header";
 import { useState } from "react";
-import IngredientForm from "./components/ingredientForm";
-import ShowRecipe from "./components/showRecipe";
-import ItemsInBasket from "./components/itemsInBasket";
+import IngredientForm from "./components/IngredientForm";
+import ShowRecipe from "./components/ShowRecipe";
+import ItemsInBasket from "./components/ItemsInBasket";
 
 export default function Home() {
 	const [ingredients, setIngredients] = useState([]);
@@ -14,7 +14,7 @@ export default function Home() {
 			<div className="mt-24 w-full">
 				<IngredientForm setIngredients={setIngredients} />
 				<div className="max-w-2xl mx-auto">
-					<ItemsInBasket ingredients={ingredients} />
+					<ItemsInBasket ingredients={ingredients} setIngredients={setIngredients} />
 					{ingredients.length >= 3 && <ShowRecipe ingredients={ingredients} />}
 				</div>
 			</div>
