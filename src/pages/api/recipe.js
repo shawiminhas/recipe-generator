@@ -14,8 +14,8 @@ export default async function getRecipe(req, res) {
 	try {
 		const { ingredients } = req.body;
 		const response = await anthropic.messages.create({
-			model: "claude-3-5-sonnet-20241022",
-			max_tokens: 8192,
+			model: "claude-3-haiku-20240307",
+			max_tokens: 1024,
 			temperature: 1,
 			system: systemPrompt,
 			messages: [
