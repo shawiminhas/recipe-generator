@@ -2,15 +2,25 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import ReactModal from "react-modal";
 import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+import { notification } from "antd";
 
 export default function ShowRecipe({ ingredients }) {
+	const [api, contextHolder] = notification.useNotification();
 	const [recipe, setRecipe] = useState("");
 	const [recipeLink, setRecipeLink] = useState("");
 	const [showRecipe, setShowRecipe] = useState(false);
 	const [isGeneratingRecipe, setIsGeneratingRecipe] = useState(false);
 	const [errorGeneratingRecipe, setErrorGeneratingRecipe] = useState(false);
 	const [errorGeneratingRecipeImage, setErrorGeneratingRecipeImage] = useState(false);
+
+	function errorNotification() {
+		api["error"]({
+			message: "Error generating recipe",
+			description: "There was an error generating the recipe, please try again later.",
+			maxCount: 1,
+			duration: 3,
+		});
+	}
 
 	async function generateRecipe() {
 		try {
@@ -27,6 +37,7 @@ export default function ShowRecipe({ ingredients }) {
 			if (!response.ok) {
 				setErrorGeneratingRecipe(true);
 				setIsGeneratingRecipe(false);
+				errorNotification();
 				return;
 			}
 			const generatedRecipe = await response.json();
@@ -36,6 +47,7 @@ export default function ShowRecipe({ ingredients }) {
 		} catch (e) {
 			console.error(`Error: ${e.message}`);
 			setErrorGeneratingRecipe(true);
+			errorNotification();
 		} finally {
 			setIsGeneratingRecipe(false);
 		}
@@ -105,12 +117,13 @@ export default function ShowRecipe({ ingredients }) {
 
 	return (
 		<>
+			{contextHolder}
 			<div className="bg-white p-8 mt-16 shadow-md rounded-md">
 				<div className="text-xl font-bold ">Ready for a recipe?</div>
 				<div className="flex justify-end ">{generateRecipeButton()}</div>
 				<div className="text-lg text-gray-600">Generate a recipe from your list of ingredients</div>
 			</div>
-			{errorGeneratingRecipe ? <div>error</div> : recipe && displayRecipe()}
+			{!errorGeneratingRecipe && recipe && displayRecipe()}
 		</>
 	);
 }
