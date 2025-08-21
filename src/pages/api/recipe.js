@@ -31,6 +31,7 @@ export default async function getRecipe(req, res) {
 			],
 		});
 		const recipe = response.content[0].text;
+		res.setHeader("Content-Type", "text/markdown");
 		res.status(200).json(recipe);
 	} catch (e) {
 		console.error(e);

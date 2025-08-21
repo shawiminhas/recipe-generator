@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import ReactModal from "react-modal";
 import CircularProgress from "@mui/material/CircularProgress";
 import { notification } from "antd";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function ShowRecipe({ ingredients }) {
 	const [api, contextHolder] = notification.useNotification();
@@ -103,6 +104,7 @@ export default function ShowRecipe({ ingredients }) {
 				onRequestClose={closeModal}
 				shouldCloseOnEsc={true}
 				shouldCloseOnOverlayClick={true}>
+				<CloseIcon fontSize="large" className="cursor-pointer hover:text-blue-600" onClick={closeModal} />
 				<div className="flex justify-center">
 					<div className="prose rounded-lg bg-white py-10 px-12 font-semibold shadow-md w-full max-w-screen-md">
 						<ReactMarkdown>{recipe}</ReactMarkdown>
